@@ -10,6 +10,9 @@ import java.util.Map;
 import org.vaadin.example.entity.CondolenceEntry;
 import org.vaadin.example.entity.Person;
 
+/**
+ * TODO: Alle Zugriffe auf den Cache müssen ersetzt werden durch richtige backend calls.
+ */
 public class BackendCache {
 
 	private final static Map<Long, Person> personCache = new HashMap<>();

@@ -2,6 +2,9 @@ package org.vaadin.example.entity;
 
 import java.time.Instant;
 
+/**
+ * Simple POJO to be used in the vaadin components.
+ */
 public class CondolenceEntry {
 
 	private String name;

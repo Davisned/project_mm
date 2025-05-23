@@ -52,7 +52,9 @@ public class AddNewCondolenceView extends VerticalLayout implements HasUrlParame
         upload.addSucceededListener(event -> {
         	String filename = event.getFileName();
         	InputStream is = buffer.getInputStream(filename);
-        	//TODO do sth with is
+        	//TODO do sth with the inputstream to store the file
+        	//Maybe little problematic because it will finish async to the save
+        	//button
         	System.out.println(filename + "uploaded");
         });
 

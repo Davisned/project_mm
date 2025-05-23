@@ -13,6 +13,5 @@ public class LogoutView extends Main {
 
 	public LogoutView(AuthenticationContext authenticationContext) { 
 		authenticationContext.logout();
-//        add(new Button("Logout", event -> authenticationContext.logout()));
     }
 }

@@ -33,7 +33,6 @@ public class MainView extends AppLayout {
     public MainView(AuthenticationContext authenticationContext) {
         createHeader();
         createDrawer();
-        
     }
 
     private void createHeader() {

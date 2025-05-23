@@ -30,9 +30,6 @@ public class EntryView extends VerticalLayout implements HasUrlParameter<Long> {
 	public EntryView() {
 		List<CondolenceEntry> entries = BackendCache.resolveFromPersonId(currentEntryId);
 		
-		BackendCache.getPersonCache().values().stream().forEach(entry -> {
-			System.out.println(entry);
-		});
 		list.setItems(entries.stream().map(entry -> {
 			return new MessageListItem(entry.getMessage(), entry.getTime(), entry.getName());
 		}).collect(Collectors.toList()));

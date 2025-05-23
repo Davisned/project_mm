@@ -3,6 +3,9 @@ package org.vaadin.example.entity;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * Simple POJO to be used in the vaadin components.
+ */
 public class Person {
 	
 	private final static AtomicLong idCnt = new AtomicLong();

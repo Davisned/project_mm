@@ -27,7 +27,6 @@ class SecurityConfig extends VaadinWebSecurity {
         LoggerFactory.getLogger(SecurityConfig.class)
             .warn("NOT FOR PRODUCITON: Using in-memory user details manager!"); 
 
-
         var user = User.withUsername("user")
                 .password("{noop}user")
                 .roles(Roles.USER)
