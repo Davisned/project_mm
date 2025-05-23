@@ -11,6 +11,7 @@ import org.vaadin.example.security.Roles;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.messages.MessageList;
 import com.vaadin.flow.component.messages.MessageListItem;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -26,6 +27,7 @@ public class EntryView extends VerticalLayout implements HasUrlParameter<Long> {
 
 	private Long currentEntryId;
 	private MessageList list = new MessageList();
+	private Div divListLayer;
 	
 	public EntryView() {
 		List<CondolenceEntry> entries = BackendCache.resolveFromPersonId(currentEntryId);
@@ -34,13 +36,15 @@ public class EntryView extends VerticalLayout implements HasUrlParameter<Long> {
 			return new MessageListItem(entry.getMessage(), entry.getTime(), entry.getName());
 		}).collect(Collectors.toList()));
 		
+		divListLayer = new Div(list);
+		
 		Button btn = new Button("Add");
         btn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 		btn.addClickListener(event -> {
 			UI.getCurrent().navigate("addCondolence/" + currentEntryId);
 		});
 		
-		add(list, btn);
+		add(divListLayer, btn);
 	}
 
 	@Override
@@ -49,6 +53,9 @@ public class EntryView extends VerticalLayout implements HasUrlParameter<Long> {
 		list.setItems(Collections.emptyList());
 		List<CondolenceEntry> entries = BackendCache.resolveFromPersonId(currentEntryId);
 		list.setItems(entries.stream().map(entry -> {
+			if (entry.getAttachement() != null) {
+				divListLayer.add(entry.getAttachement());
+			}
 			return new MessageListItem(entry.getMessage(), entry.getTime(), entry.getName());
 		}).collect(Collectors.toList()));
 	}

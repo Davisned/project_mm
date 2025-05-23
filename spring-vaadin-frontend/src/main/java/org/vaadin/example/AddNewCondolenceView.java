@@ -1,6 +1,5 @@
 package org.vaadin.example;
 
-import java.io.InputStream;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +13,9 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
-import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.upload.Upload;
@@ -25,6 +23,7 @@ import com.vaadin.flow.component.upload.receivers.MultiFileMemoryBuffer;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 
 import jakarta.annotation.security.RolesAllowed;
 
@@ -33,6 +32,8 @@ import jakarta.annotation.security.RolesAllowed;
 public class AddNewCondolenceView extends VerticalLayout implements HasUrlParameter<Long> {
 
 	private Long param;
+	private Image data;
+	private String mime;
 	
 	public AddNewCondolenceView() {
 		setPadding(true);
@@ -51,10 +52,11 @@ public class AddNewCondolenceView extends VerticalLayout implements HasUrlParame
         
         upload.addSucceededListener(event -> {
         	String filename = event.getFileName();
-        	InputStream is = buffer.getInputStream(filename);
-        	//TODO do sth with the inputstream to store the file
-        	//Maybe little problematic because it will finish async to the save
-        	//button
+        	
+        	StreamResource resource = new StreamResource(filename, () -> buffer.getInputStream(filename));
+        	this.data = new Image(resource, "Bild");
+        	this.mime = event.getMIMEType();
+        	
         	System.out.println(filename + "uploaded");
         });
 
@@ -67,6 +69,7 @@ public class AddNewCondolenceView extends VerticalLayout implements HasUrlParame
             String message = textArea.getValue();
             
             CondolenceEntry entry = new CondolenceEntry(name, Instant.now(), message);
+            entry.setAttachement(data);
             Person person = BackendCache.getPersonCache().get(param);
             if (person == null) {
             	System.out.println("No Person for you!");
