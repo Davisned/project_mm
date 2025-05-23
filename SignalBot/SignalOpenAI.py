@@ -31,10 +31,9 @@ if __name__ == "__main__":
     load_dotenv()
     print(os.getenv("PHONE_NUMBER2"))
     bot = SignalBot(config={
-        "signal_service": '192.168.137.1:9922',
+        "signal_service": os.getenv("PORT_OF_SIGNAL_REST_CLI_SERVER"),
         "phone_number": os.getenv("PHONE_NUMBER2")
     })
     print(bot.config)
     bot.register(PingCommand()) # all contacts and groups
     bot.start()
-    print(os.getenv("PHONE_NUMBER"))
