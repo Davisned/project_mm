@@ -1,12 +1,12 @@
 FROM python:3.11-slim
 
-ENV PHONE_NUMBER2="+49123456789"
+#ENV PHONE_NUMBER2="+49 1636398048"
 
-ENV API_KEY="asdfasdfasdfasdf"
+#ENV API_KEY="asdfasdfasdfasdf"
 
-ENV PORT_OF_SIGNAL_REST_CLI_SERVER="192.168.137.1:9922"
+#ENV PORT_OF_SIGNAL_REST_CLI_SERVER="192.168.137.1:9922"
 
-COPY SignalOpenAI.py ./
+COPY SignalOpenAIwithAgents.py ./
 
 COPY .env ./
 
@@ -16,4 +16,6 @@ RUN pip install dotenv
 
 RUN pip install signalbot
 
-CMD ["python3", "SignalOpenAI.py"]
+RUN pip install agents
+
+CMD ["python3", "SignalOpenAIwithAgents.py"]
