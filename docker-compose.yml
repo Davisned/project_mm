@@ -1,0 +1,75 @@
+services:
+
+  db:
+    container_name: mm_db
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    env_file:
+      - ./.env
+
+  db_adminer:
+    container_name: mm_db_adminer
+    image: adminer
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+      - ADMINER_DESIGN=pepa_linha
+
+  backend:
+    container_name: mm_backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8000"
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+
+  frontend:
+    container_name: mm_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+    env_file:
+      - ./.env
+    ports:
+      - "8000:8080"
+    depends_on:
+      - backend
+
+  # mcp-server
+
+  signal-cli-rest:
+    container_name: signal-cli-rest
+    image: bbernhard/signal-cli-rest-api:latest
+    environment:
+      - MODE=json-rpc
+    ports:
+      - "9923:8080"
+    volumes:
+      - signal_cli_data:/home/.local/share/signal-cli
+
+  signalbot:
+    container_name: signalbot
+    build:
+      context: ./chatbot
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env
+    depends_on:
+      - signal-cli-rest
+    
+
+volumes:
+  pg_data:
+  signal_cli_data:

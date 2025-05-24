@@ -1,0 +1,7 @@
+# Variante zur Darstellung der Anhängedaten für unsere Webpage
+# @chromium-browser --noerrdialogs --disable-infobars --kiosk ${FRONTEND_HOST}
+
+@xset s off
+@xset -dpms
+@xset s noblank
+@unclutter -idle 0.1 -root
