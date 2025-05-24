@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 #ENV PHONE_NUMBER2="+49 1636398048"
 
@@ -16,6 +16,6 @@ RUN pip install dotenv
 
 RUN pip install signalbot
 
-RUN pip install agents
+RUN pip install openai-agents
 
 CMD ["python3", "SignalOpenAIwithAgents.py"]
