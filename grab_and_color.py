@@ -1,3 +1,5 @@
+# Für 16-Bit-RGB Screenshots
+
 #!/usr/bin/env python3
 """
 screenshot_to_esp.py
@@ -12,7 +14,7 @@ import serial
 from PIL import ImageGrab
 
 # --- Konfiguration ---
-SERIAL_PORT = "/dev/ttyUSB0"  # ggf. anpassen (z.B. /dev/ttyACM0)
+SERIAL_PORT = "COM5"  # ggf. anpassen (z.B. /dev/ttyACM0)
 BAUDRATE    = 115200          # ESP32 üblicher Default
 DELAY_BOOT  = 2               # Wartezeit, bis ESP32 nach Open-Fkt. verzögert ist
 

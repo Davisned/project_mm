@@ -1,4 +1,6 @@
-@chromium-browser --noerrdialogs --disable-infobars --kiosk Website-URL
+# Variante zur Darstellung der Anhängedaten für unsere Webpage
+# @chromium-browser --noerrdialogs --disable-infobars --kiosk Website-URL
+
 @xset s off
 @xset -dpms
 @xset s noblank
